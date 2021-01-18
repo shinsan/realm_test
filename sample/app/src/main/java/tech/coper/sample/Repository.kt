@@ -8,12 +8,8 @@ class Repository() {
     private val database = ProfileDatabase()
 
 
-    suspend fun getProfile(isForce: Boolean): Profile? =
+    suspend fun getProfile(): Profile? =
         withContext(Dispatchers.IO) {
-
-            if (isForce) {
-                database.delete()
-            }
 
             val profile = database.fetch()
             if (profile != null) {

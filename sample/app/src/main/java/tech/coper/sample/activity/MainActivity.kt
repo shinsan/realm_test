@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         lifecycleScope.launchWhenStarted {
             try {
-                val res  = repository.getProfile(isForce = false)
+                val res  = repository.getProfile()
                 familyname.text = res?.familyName
                 givenname.text = res?.givenName
 

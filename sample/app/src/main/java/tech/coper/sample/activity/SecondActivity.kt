@@ -50,7 +50,7 @@ class SecondActivity : AppCompatActivity(R.layout.activity_second) {
 
         lifecycleScope.launchWhenStarted {
             try {
-                val res  = repository.getProfile(isForce = false)
+                val res  = repository.getProfile()
                 familyname.text = res?.familyName
                 givenname.text = res?.givenName
             } catch (e: Throwable) {

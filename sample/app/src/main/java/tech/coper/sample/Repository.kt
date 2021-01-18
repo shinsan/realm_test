@@ -11,7 +11,6 @@ class Repository() {
     suspend fun getProfile(isForce: Boolean): Profile =
         withContext(Dispatchers.IO) {
 
-//            Timber.d((isForce.toString()))
             if (isForce) {
                 database.delete()
             }

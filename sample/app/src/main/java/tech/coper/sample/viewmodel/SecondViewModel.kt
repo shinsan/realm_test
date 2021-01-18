@@ -25,11 +25,6 @@ class SecondViewModel() : ViewModel(){
                 e.printStackTrace()
             }
         }
-
-        var k = 1
-        for(i in 1..10){
-            k = k * i
-        }
     }
 
     fun renew(){

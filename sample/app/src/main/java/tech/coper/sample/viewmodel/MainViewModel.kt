@@ -25,17 +25,11 @@ class MainViewModel() : ViewModel(){
                 e.printStackTrace()
             }
         }
-        var k = 1
-        for(i in 1..10){
-            k = k * i
-        }
-
     }
 
     fun forceStore(){
         viewModelScope.launch {
             try {
-                // at first, store  Profile
                 repository.delete()
                 repository.store(Profile("Trump","Donald","aaaaaa"))
 

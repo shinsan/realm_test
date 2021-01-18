@@ -19,7 +19,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <TextView
-            android:id="@+id/familyname"
+            android:id="@+id/givenname"
             android:layout_width="2dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -29,7 +29,7 @@
             android:singleLine="true" />
 
         <TextView
-            android:id="@+id/givenname"
+            android:id="@+id/familyname"
             android:layout_width="2dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -70,7 +70,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_gravity="center"
-            android:text="force_store Donald Trump"></Button>
+            android:text="store Donald Trump"></Button>
 
     </LinearLayout>
 

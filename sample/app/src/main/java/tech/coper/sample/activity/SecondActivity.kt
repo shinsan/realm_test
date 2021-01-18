@@ -2,25 +2,21 @@ package tech.coper.sample.activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.familyname
 import kotlinx.android.synthetic.main.activity_main.givenname
-import kotlinx.android.synthetic.main.activity_secound.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.android.synthetic.main.activity_second.*
+import tech.coper.sample.Profile
 import tech.coper.sample.R
-import tech.coper.sample.viewmodel.SecondViewModel
+import tech.coper.sample.Repository
 
 
-class SecondActivity : AppCompatActivity(R.layout.activity_secound) {
+class SecondActivity : AppCompatActivity(R.layout.activity_second) {
 
-    val viewModel = SecondViewModel()
+    private val repository = Repository()
 
     companion object {
         fun createIntent(context: Context): Intent {
@@ -35,28 +31,31 @@ class SecondActivity : AppCompatActivity(R.layout.activity_secound) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.profile.filterNotNull().collect {
-                familyname.text = it.familyName
-                givenname.text = it.givenName
+        button_store.setOnClickListener {
+            lifecycleScope.launchWhenStarted {
+                try {
+                    repository.delete()
+                    repository.store(Profile("Biden","Joe","aaaaaa"))
+
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
             }
-        }
-
-
-        button_next.setOnClickListener {
-            val intent = ThirdActivity.createIntent(this@SecondActivity)
-            startActivity(intent)
-        }
-
-        button_renew.setOnClickListener {
-            viewModel.renew()
         }
 
     }
 
     override fun onResume() {
         super.onResume()
-        Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888)
-        viewModel.onResume()
+
+        lifecycleScope.launchWhenStarted {
+            try {
+                val res  = repository.getProfile(isForce = false)
+                familyname.text = res?.familyName
+                givenname.text = res?.givenName
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            }
+        }
     }
 }

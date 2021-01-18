@@ -8,7 +8,7 @@ class Repository() {
     private val database = ProfileDatabase()
 
 
-    suspend fun getProfile(isForce: Boolean): Profile =
+    suspend fun getProfile(isForce: Boolean): Profile? =
         withContext(Dispatchers.IO) {
 
             if (isForce) {
@@ -19,10 +19,7 @@ class Repository() {
             if (profile != null) {
                 return@withContext profile
             }
-
-            val response =  Profile(familyName = "Biden",givenName = "Joe",id = "bbbbbb")
-            database.store(response)
-            response
+            null
         }
 
     suspend fun store(profile:Profile) :Unit = withContext(Dispatchers.IO){

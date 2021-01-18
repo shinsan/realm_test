@@ -19,7 +19,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <TextView
-            android:id="@+id/familyname"
+            android:id="@+id/givenname"
             android:layout_width="2dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -29,7 +29,7 @@
             android:singleLine="true" />
 
         <TextView
-            android:id="@+id/givenname"
+            android:id="@+id/familyname"
             android:layout_width="2dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -49,28 +49,14 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button_next"
+            android:id="@+id/button_store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/linear"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_gravity="center"
-            android:text="next activity">
-
-
-
-        </Button>
-
-        <Button
-            android:id="@+id/button_renew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/linear"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_gravity="center"
-            android:text="renew DB">
+            android:text="store Joe Biden">
         </Button>
     </LinearLayout>
 

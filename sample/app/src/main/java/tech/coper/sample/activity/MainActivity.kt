@@ -7,23 +7,17 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
+import tech.coper.sample.Profile
 import tech.coper.sample.R
-import tech.coper.sample.viewmodel.MainViewModel
+import tech.coper.sample.Repository
 
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
-
-    val viewModel = MainViewModel()
+    private val repository = Repository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.profile.filterNotNull().collect {
-                familyname.text = it.familyName
-                givenname.text = it.givenName
-            }
-        }
 
         next_activity.setOnClickListener {
             val intent = SecondActivity.createIntent(this@MainActivity)
@@ -31,13 +25,30 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         force_store.setOnClickListener {
-            viewModel.forceStore()
+           lifecycleScope.launchWhenStarted {
+               try {
+                   repository.delete()
+                   repository.store(Profile("Trump","Donald","aaaaaa"))
+
+               } catch (e: Throwable) {
+                   e.printStackTrace()
+               }
+           }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888)
-        viewModel.onResume()
+
+        lifecycleScope.launchWhenStarted {
+            try {
+                val res  = repository.getProfile(isForce = false)
+                familyname.text = res?.familyName
+                givenname.text = res?.givenName
+
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            }
+        }
     }
 }

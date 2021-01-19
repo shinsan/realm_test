@@ -15,6 +15,7 @@ class Repository() {
             if (profile != null) {
                 return@withContext profile
             }
+
             null
         }
 

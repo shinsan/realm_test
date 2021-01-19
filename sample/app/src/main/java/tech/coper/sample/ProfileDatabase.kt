@@ -10,7 +10,9 @@ class ProfileDatabase {
         val realm = Realm.getDefaultInstance()
         val instance = realm.where(ProfileEntity::class.java).findFirst()
         Log.e("American President", "fetch " + instance?.toModel()?.familyName)
-        return instance?.toModel()
+        val model = instance?.toModel()
+        realm.close()
+        return model
     }
 
     fun store(accountProfile: Profile) {
@@ -20,6 +22,7 @@ class ProfileDatabase {
             it.copyToRealmOrUpdate(entity)
             Log.e( "American President","store " + entity.familyName)
         }
+        realm.close()
     }
 
     fun delete() {
@@ -29,5 +32,6 @@ class ProfileDatabase {
             entity?.deleteFromRealm()
             Log.e("American President","delete ")
         }
+        realm.close()
     }
 }
